@@ -8,20 +8,18 @@ const GOOGLE_API_KEY = 'AIzaSyAgR361k-fk4tp3dp_pbZT1_6NE8lYERtA'; // Store your 
 app.use(express.json());
 app.use(cors());
 
-app.get('/autocomplete', async (req, res) => {
-    const input = encodeURIComponent(req.query.input);
-
-    console.log(input)
-
-    if (!input) {
-        return res.status(400).send('Input query is required');
-    }
+app.post('/send-string', async (req, res) => {
+    const { data } = req.body;
 
     try {
-        const response = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&key=${GOOGLE_API_KEY}`);
+        const response = await axios.post(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${data}&key=${GOOGLE_API_KEY}`, {
+            data: data
+        });
+
         res.json(response.data);
     } catch (error) {
-        res.status(500).send('Error fetching data from Google Places API');
+        console.error(error);
+        res.status(500).send('Error fetching data from external API');
     }
 });
 
