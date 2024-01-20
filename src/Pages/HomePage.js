@@ -10,7 +10,7 @@ const HomePage = () => {
         setNewInput(updatedInput);
 
         if (updatedInput !== ''){
-            fetch('http://localhost:3001/send-string', {
+            fetch('http://localhost:3001/send-input', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
