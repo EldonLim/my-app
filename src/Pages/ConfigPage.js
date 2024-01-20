@@ -49,9 +49,23 @@ const ConfigPage = () => {
 
     // Function to be called when the button is clicked
     const handleButtonClick = () => {
-        // Your logic goes here
-        console.log('Button clicked!');
-        // Call other functions or perform actions
+        // Send the distance and cuisine to server 
+        if (selectedDistance != '0.2' && selectedCuisines != []){
+            fetch('http://localhost:3001/send-preferences', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ distance: selectedDistance, cuisines:selectedCuisines}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response data
+                console.log(data);
+                //setPlaces(data);
+            })
+            .catch(error => console.error('Error:', error));
+        }
     }
 
     return (

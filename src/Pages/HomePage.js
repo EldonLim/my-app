@@ -10,7 +10,7 @@ const HomePage = () => {
         setNewInput(updatedInput);
 
         if (updatedInput !== ''){
-            fetch('http://localhost:3001/send-string', {
+            fetch('http://localhost:3001/send-input', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -20,6 +20,7 @@ const HomePage = () => {
             .then(response => response.json())
             .then(data => {
                 // Handle the response data
+                console.log(data);
                 setPlaces(data);
             })
             .catch(error => console.error('Error:', error));
