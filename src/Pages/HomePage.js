@@ -8,7 +8,7 @@ const HomePage = () => {
     const handleUpdateInput = (events) => {
         const updatedInput = events.target.value;
         setNewInput(updatedInput);
-
+        
         /* fetch(`/autocomplete?input=${encodeURIComponent(updatedInput)}`)
             .then(response => response.json())
             .then(data => {
