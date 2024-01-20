@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import '../ConfigPage.css'
+import '../Styles/ConfigPage.css'
 
 const ConfigPage = () => {
     // State to store the selected distance range
@@ -117,10 +117,12 @@ const ConfigPage = () => {
 
                 <div>
                     {/* Button triggering the function */}
-                    <button onClick={handleButtonClick}>
+                    <a href='WheelPage'>
+                        <button onClick={handleButtonClick}>
                         Foodie Pick
-                    </button>
-
+                        </button>
+                    </a>
+                    
                     <section id="section-id">
                     {/* Section content goes here */}
                     </section>
