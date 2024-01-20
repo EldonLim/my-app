@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../Assets/icon.png';
 import { useState } from 'react';
 import '../ConfigPage.css'
 
