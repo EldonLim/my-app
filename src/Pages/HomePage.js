@@ -9,8 +9,6 @@ const HomePage = () => {
         const updatedInput = events.target.value;
         setNewInput(updatedInput);
 
-        console.log(updatedInput)
-
         if (updatedInput !== ''){
             fetch('http://localhost:3001/send-string', {
                 method: 'POST',
@@ -22,7 +20,6 @@ const HomePage = () => {
             .then(response => response.json())
             .then(data => {
                 // Handle the response data
-                console.log(data)
                 setPlaces(data);
             })
             .catch(error => console.error('Error:', error));
