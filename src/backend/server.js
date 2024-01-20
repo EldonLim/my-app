@@ -12,7 +12,7 @@ app.post('/send-string', async (req, res) => {
     const { data } = req.body;
 
     try {
-        const response = await axios.post(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${data}&key=${GOOGLE_API_KEY}`, {
+        const response = await axios.post(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${data}&components=country:sg&key=${GOOGLE_API_KEY}`, {
             data: data
         });
 

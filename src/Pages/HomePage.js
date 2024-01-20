@@ -20,6 +20,7 @@ const HomePage = () => {
             .then(response => response.json())
             .then(data => {
                 // Handle the response data
+                console.log(data);
                 setPlaces(data);
             })
             .catch(error => console.error('Error:', error));
