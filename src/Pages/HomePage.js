@@ -1,5 +1,13 @@
+import React, { useState } from 'react';
+
 const HomePage = () => {
 
+    const [newInput, setNewInput] = useState('');
+
+    const handleUpdateInput = (events) => {
+        const updatedInput = events.target.value;
+        setNewInput(updatedInput);
+    }
 
     return (
         <header>
@@ -9,7 +17,7 @@ const HomePage = () => {
                 Find your location, Select your preferences, Spin the wheel
             </p>
             <form>
-                <input/>
+                <input value = {newInput} onChange = {handleUpdateInput}/>
                 <button>Submit</button>
             </form>
         </header>

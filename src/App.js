@@ -6,6 +6,8 @@ import './App.css';
 import HomePage from './Pages/HomePage';
 import ConfigPage from './Pages/ConfigPage';
 
+const GOOGLE_MAP_API_KEY = 'AIzaSyCflu0SynaYmHkHWu_ziiQv1SF631w4ONU';
+
 function App() {
   return (
     <BrowserRouter>
