@@ -25,7 +25,7 @@ app.post('/send-input', async (req, res) => {
 });
 
 // receives user preferences from Config Page
-/* app.post('/send-preferences', async (req, res) => {
+app.post('/send-preferences', async (req, res) => {
     const { distance, cuisines } = req.body;
 
     try {
@@ -39,7 +39,7 @@ app.post('/send-input', async (req, res) => {
         console.error(error);
         res.status(500).send('Error fetching data from external API');
     } 
-}); */
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
