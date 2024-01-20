@@ -3,8 +3,6 @@ const axios = require('axios');
 const cors = require('cors');
 const app = express();
 
-const GOOGLE_API_KEY = 'AIzaSyAgR361k-fk4tp3dp_pbZT1_6NE8lYERtA'; // Store your API Key here
-
 app.use(express.json());
 app.use(cors());
 
