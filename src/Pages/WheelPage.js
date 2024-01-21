@@ -1,7 +1,10 @@
 // import "./styles.css";
 // import WheelComponent from "react-wheel-of-prizes";
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import '../Styles/style.css'
+import { useParams } from 'react-router-dom';
+import { WheelDataContext } from '../context';
+
 
 const WheelPage = () => {
     // const segments = [
@@ -17,7 +20,27 @@ const WheelPage = () => {
     //     console.log(winner);
     //   };
     // useState
+
+    const NextPageComponent = () => {
+      const { data } = useParams();
+      // Use 'data' in your component
+      console.log(NextPageComponent);
+      // return <div>Data received: {data}</div>;
+      return (
+        <div>
+          <h2>Data received:</h2>
+          <p>{data}</p>
+        </div>
+      );
+    };    
+
   const [wheelStyle, setWheelStyle] = useState("circle")
+  const {wheelData, setWheelData} = useContext(WheelDataContext);
+
+
+  useEffect(() => {
+    console.log("Wheel data:", wheelData);
+  }, [])
 
   const startRotation = () => {
     setWheelStyle("circle start-rotate");

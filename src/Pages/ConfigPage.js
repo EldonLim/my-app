@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import '../Styles/ConfigPage.css'
+import { WheelDataContext } from '../context';
+import { useNavigate } from 'react-router-dom';
+
 
 const ConfigPage = () => {
+    const navigate = useNavigate();
     // State to store the selected distance range
     const [selectedDistance, setSelectedDistance] = useState('');
 
     // State to store selected cuisine types
     const [selectedCuisines, setSelectedCuisines] = useState([]);
+
+    const {wheelData, setWheelData} = useContext(WheelDataContext);
 
     // Options for distance range
     const distanceOptions = [
@@ -47,26 +53,38 @@ const ConfigPage = () => {
         });
     };
 
-    // Function to be called when the button is clicked
-    const handleButtonClick = () => {
-        // Send the distance and cuisine to server 
-        if (selectedDistance != '0.2' && selectedCuisines != []){
-            fetch('http://localhost:3001/send-preferences', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ distance: selectedDistance, cuisines:selectedCuisines}),
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Handle the response data
-                console.log(data);
-                //setPlaces(data);
-            })
-            .catch(error => console.error('Error:', error));
-        }
+    const handleClick = () => {
+        console.log("selectedDistance:", selectedDistance);
+        console.log("selectedCuisines:", selectedCuisines);
+        setWheelData({
+            distance: selectedDistance,
+            cuisines: selectedCuisines
+        });
+
+        navigate('/WheelPage');   
     }
+
+    // Function to be called when the button is clicked
+    // const handleButtonClick = () => {
+    //     // Send the distance and cuisine to server 
+    //     if (selectedDistance != '0.2' && selectedCuisines != []){
+    //         fetch('http://localhost:3001/send-preferences', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({ distance: selectedDistance, cuisines:selectedCuisines}),
+    //         })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             // Handle the response data
+    //             console.log(data);
+    //             //setPlaces(data);
+    //         })
+    //         .catch(error => console.error('Error:', error));
+    //     }
+
+    // }
 
     return (
         // <div className="App" style={{ backgroundImage: `url(${logo})`, backgroundSize: 'cover', minHeight: '100vh' }}>
@@ -117,11 +135,15 @@ const ConfigPage = () => {
 
                 <div>
                     {/* Button triggering the function */}
-                    <a href='WheelPage'>
-                        <button onClick={handleButtonClick}>
+                    <button onClick={handleClick}>
+                        Foodie Pick
+                    </button>
+
+                    {/* <a href='WheelPage'>
+                        <button onClick={MyComponent}>
                         Foodie Pick
                         </button>
-                    </a>
+                    </a> */}
                     
                     <section id="section-id">
                     {/* Section content goes here */}
