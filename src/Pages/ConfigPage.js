@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import '../Styles/ConfigPage.css'
 
 const ConfigPage = () => {
@@ -27,6 +28,16 @@ const ConfigPage = () => {
         'Japanese',
         // Add more options as needed
     ];
+
+    // get place id from HomePage
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const serializedData = params.get('data');
+
+    // Deserialize the data (assuming it's JSON)
+    const place_id = JSON.parse(decodeURIComponent(serializedData));
+
+    // Now you can use 'data' in your React component
 
     // Function to handle distance selection
     const handleDistanceChange = (event) => {
