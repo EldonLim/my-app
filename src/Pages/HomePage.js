@@ -42,6 +42,7 @@ const HomePage = () => {
       .then(response => response.json())
       .then(data => {
         // Handle the response data - place id to be used for wheelpage api call
+        console.log(data);
         const filteredSuggestions = data.predictions.map(item => ([item.description, item.place_id]));
 
         // // Set suggestions based on filtered results
@@ -58,7 +59,6 @@ const HomePage = () => {
     setNewInput(name);
     setSelectedPlace(place_id);
     setSuggestions([]);
-    
   };
 
   // submit form, passing 
