@@ -1,7 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const app = express();
+
+const APIKey = process.env.GOOGLE_API_KEY;
 
 app.use(express.json());
 app.use(cors());
@@ -11,7 +14,7 @@ app.post('/send-input', async (req, res) => {
     const { data } = req.body;
 
     try {
-        const response = await axios.post(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${data}&components=country:sg&key=${GOOGLE_API_KEY}`, {
+        const response = await axios.post(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${data}&components=country:sg&key=${APIKey}`, {
             data: data
         });
 
@@ -27,7 +30,7 @@ app.post('/send-preferences', async (req, res) => {
     const { distance, cuisines } = req.body;
 
     try {
-        const response = await axios.post(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${data}&components=country:sg&key=${GOOGLE_API_KEY}`, {
+        const response = await axios.post(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${data}&components=country:sg&key=${APIKey}`, {
             distance: distance,
             cuisines: cuisines
         });
