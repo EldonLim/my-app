@@ -14,8 +14,6 @@ const ConfigPage = () => {
     // State to store selected cuisine types
     const [selectedCuisines, setSelectedCuisines] = useState([]);
 
-    const {wheelData, setWheelData} = useContext(WheelDataContext);
-
     // Options for distance range
     const distanceOptions = [
         { value: '0.2', label: '0.2 kilometres' },
@@ -64,17 +62,25 @@ const ConfigPage = () => {
         });
     };
 
-    const handleClick = () => {
+    /* const handleClick = () => {
         console.log("selectedDistance:", selectedDistance);
         console.log("selectedCuisines:", selectedCuisines);
         setWheelData({
+            place_id: place_id,
             distance: selectedDistance,
             cuisines: selectedCuisines
         });
 
         navigate('/WheelPage');   
-    }
+    } */
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const placeIDs = JSON.stringify(place_id);
+        const distance = JSON.stringify(selectedDistance)
+        const cuisines = JSON.stringify(selectedCuisines.toString())
+        window.location.href = `/wheelpage?place_ID=${placeIDs}&dist=${distance}&cuisines=${cuisines}`;
+      }
     // Function to be called when the button is clicked
     // const handleButtonClick = () => {
     //     // Send the distance and cuisine to server 
@@ -146,7 +152,7 @@ const ConfigPage = () => {
 
                 <div>
                     {/* Button triggering the function */}
-                    <button onClick={handleClick}>
+                    <button onClick={handleSubmit}>
                         Foodie Pick
                     </button>
 

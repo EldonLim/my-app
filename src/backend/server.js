@@ -25,21 +25,46 @@ app.post('/send-input', async (req, res) => {
     }
 });
 
-// receives user preferences from Config Page
-app.post('/send-preferences', async (req, res) => {
-    const { distance, cuisines } = req.body;
+app.post('/send-nearby-input', async (req, res) => {
+    const { place_id, dist, cuisines } = req.body;
 
     try {
-        const response = await axios.post(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${data}&components=country:sg&key=${APIKey}`, {
-            distance: distance,
+        const response = await axios.post(`https://maps.googleapis.com/maps/api/geocode/json?place_id=${place_id}&key=${APIKey}`, {
+            place_id: place_id, 
+            dist: int(dist) * 1000, 
             cuisines: cuisines
         });
 
-        res.json(response.data);
+        const lat = response.results.geometry.location.lat;
+        const long = response.results.geometry.location.long;
+
+        console.log(lat, long)
+
+        const nearby_response = await axios.post('https://places.googleapis.com/v1/places:searchNearby', {
+            includedTypes: ["restaurant"],
+            maxResultCount: 12,
+            locationRestriction: {
+                circle: {
+                    center: {
+                        latitude: lat,
+                        longitude: long
+                    },
+                    radius: dist
+                }
+            }
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Goog-Api-Key': APIKey, // Replace with your API key
+                'X-Goog-FieldMask': 'places.displayName'
+            }
+        });
+
+        res.json(nearby_response.data);
     } catch (error) {
         console.error(error);
         res.status(500).send('Error fetching data from external API');
-    } 
+    }
 });
 
 const PORT = process.env.PORT || 3001;

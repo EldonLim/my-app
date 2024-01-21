@@ -2,6 +2,7 @@
 // import WheelComponent from "react-wheel-of-prizes";
 import { useState } from 'react'
 import '../Styles/style.css'
+import { useLocation } from 'react-router-dom';
 
 const WheelPage = () => {
     // const segments = [
@@ -20,10 +21,32 @@ const WheelPage = () => {
   const [wheelStyle, setWheelStyle] = useState("circle")
   // const {wheelData, setWheelData} = useContext(WheelDataContext);
 
+  // get place id from HomePage
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const place_id = JSON.parse(decodeURIComponent(params.get('place_ID')));
+  const dist = JSON.parse(decodeURIComponent(params.get('dist')));
+  //storing the string elements in array after splitting  
+  const cuisines = JSON.parse(decodeURIComponent(params.get('cuisines')));    
 
-  // useEffect(() => {
-  //   console.log("Wheel data:", wheelData);
-  // }, [])
+  const [nearbyResult, setNearbyResult] = useState([]); 
+
+  //NOTE: sfaulty
+  fetch('http://localhost:3001/send-nearby-input', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ place_id: place_id, dist: dist, cuisines: cuisines}),
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Handle the response data - place id to be used for wheelpage api call
+      console.log(data);
+
+    })
+    .catch(error => console.error('Error:', error));
+
 
   const startRotation = () => {
     setWheelStyle("circle start-rotate");
@@ -35,6 +58,7 @@ const WheelPage = () => {
 
   return (
     <div>
+      <p>{place_id} {typeof(cuisines)}</p>
       <div className="arrow"></div>
       <ul className={wheelStyle}>
         <li className="wheel-list">
