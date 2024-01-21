@@ -18,12 +18,12 @@ const WheelPage = () => {
     //   };
     // useState
   const [wheelStyle, setWheelStyle] = useState("circle")
-  const {wheelData, setWheelData} = useContext(WheelDataContext);
+  // const {wheelData, setWheelData} = useContext(WheelDataContext);
 
 
-  useEffect(() => {
-    console.log("Wheel data:", wheelData);
-  }, [])
+  // useEffect(() => {
+  //   console.log("Wheel data:", wheelData);
+  // }, [])
 
   const startRotation = () => {
     setWheelStyle("circle start-rotate");
